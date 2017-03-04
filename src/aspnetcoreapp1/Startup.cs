@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using aspnetcoreapp1.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,14 +13,16 @@ namespace aspnetcoreapp1
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
+        // dependency injection
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IStringFormatter, JsonStringFormatter>();
+            services.AddTransient<IGreeter>((provider) => new GreetMessage());
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        
+        // add middlewares to pipeline
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+                    IStringFormatter stringFormatter)
         {
             loggerFactory.AddConsole();
 
@@ -28,9 +31,10 @@ namespace aspnetcoreapp1
                 app.UseDeveloperExceptionPage();
             }
 
+            // terminus
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync(stringFormatter.FormatIt(new { Message = "Hello World" }));
             });
         }
     }
