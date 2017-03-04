@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
 using aspnetcoreapp1.Helpers;
 using aspnetcoreapp1.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -23,14 +19,18 @@ namespace aspnetcoreapp1
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
-            var configRoot = configBuilder.Build();
+            Configuration = configBuilder.Build();
         }
+
+        public IConfiguration Configuration { get; set; } // stores the config object in a property.
 
         // dependency injection
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStringFormatter, JsonStringFormatter>();
             services.AddTransient<IGreeter>((provider) => new GreetMessage());
+
+            services.AddMvc();
         }
         
         // add middlewares to pipeline
@@ -42,16 +42,30 @@ namespace aspnetcoreapp1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
             }
 
             //app.UseMiddleware<LoggerComponent>("Admin", DateTime.UtcNow); // default middleware adding.
             app.UseLoggerComponent("Admin", DateTime.UtcNow); // adding with using extesion class
 
-            // terminus
-            app.Run(async (context) =>
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync(stringFormatter.FormatIt(new { Message = "Hello World" }));
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // terminus
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync(stringFormatter.FormatIt(new { Message = "Hello World" }));
+            //});
         }
     }
 }
