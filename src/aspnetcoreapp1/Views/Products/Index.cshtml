@@ -1,0 +1,22 @@
+﻿@model IEnumerable<aspnetcoreapp1.Models.ProductViewModel>
+
+<h1>Our products</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bookViewModel in Model)
+            {
+            <tr>
+                <td>@bookViewModel.Id</td>
+                <td>@bookViewModel.Category</td>
+                <td>@bookViewModel.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>
