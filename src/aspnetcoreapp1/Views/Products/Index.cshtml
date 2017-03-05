@@ -1,6 +1,6 @@
-﻿@model IEnumerable<aspnetcoreapp1.Models.ProductViewModel>
+﻿@model aspnetcoreapp1.Models.ProductIndexViewModel
 
-<h1>Our products</h1>
+<h1>Our products. In total: @Model.TotalProductsAvailable</h1>
 <table>
     <thead>
         <tr>
@@ -10,12 +10,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var bookViewModel in Model)
+        @foreach (var prouctViewModel in Model.ProductViewModels)
         {
             <tr>
-                <td>@bookViewModel.Id</td>
-                <td>@bookViewModel.Category</td>
-                <td>@bookViewModel.Title</td>
+                <td>@prouctViewModel.Id</td>
+                <td>@prouctViewModel.Category</td>
+                <td>@prouctViewModel.Title</td>
+                <td>@Html.ActionLink("Detail", "Detail", "Products", new { id = prouctViewModel.Id })</td>
             </tr>
         }
     </tbody>

@@ -30,7 +30,8 @@ namespace aspnetcoreapp1
         {
             services.AddSingleton<IStringFormatter, JsonStringFormatter>();
             services.AddTransient<IGreeter>((provider) => new GreetMessage());
-
+            
+            // single instance for per request
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 

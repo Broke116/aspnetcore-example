@@ -6,5 +6,6 @@ namespace aspnetcoreapp1.Repositories
     public interface IProductRepository
     {
         IEnumerable<Product> GetAll();
+        Product GetBy(int id);
     }
 }

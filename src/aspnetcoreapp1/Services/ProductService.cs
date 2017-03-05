@@ -29,5 +29,18 @@ namespace aspnetcoreapp1.Services
                 throw;
             }
         }
+
+        public Product GetBy(int id)
+        {
+            try
+            {
+                return _productRepository.GetBy(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

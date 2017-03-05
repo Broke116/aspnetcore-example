@@ -9,7 +9,7 @@ namespace aspnetcoreapp1.Repositories
 {// dummy repo without DB
     public class ProductRepository : IProductRepository
     {
-        private List<Product> _products;
+        private readonly List<Product> _products;
 
         public ProductRepository()
         {
@@ -26,6 +26,11 @@ namespace aspnetcoreapp1.Repositories
         public IEnumerable<Product> GetAll()
         {
             return _products;
+        }
+
+        public Product GetBy(int id)
+        {
+            return (from p in _products where p.Id == id select p).FirstOrDefault();
         }
     }
 }

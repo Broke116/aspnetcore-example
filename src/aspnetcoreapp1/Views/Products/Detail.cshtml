@@ -1,0 +1,26 @@
+﻿@model aspnetcoreapp1.Models.ProductDetailsViewModel
+
+<h1>Details of @Model.Title</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Pages</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Title</td>
+        <td>@Model.Category</td>
+        <td>@Model.Quantity</td>
+        <td>@Model.Price</td>
+        <td>@Model.Date</td>
+    </tr>
+    </tbody>
+</table>
+
+@Html.ActionLink("Back to list", "Index", "Products")
