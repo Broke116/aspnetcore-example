@@ -60,16 +60,21 @@ namespace aspnetcoreapp1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(InsertProductViewModel insertProductViewModel)
         {
-            var newProduct = new Product()
+            if (ModelState.IsValid)
             {
-                Title = insertProductViewModel.Title,
-                Category = insertProductViewModel.Category,
-                Date = DateTime.UtcNow,
-                Price = insertProductViewModel.Price,
-                Quantity = insertProductViewModel.Quantity
-            };
-            _productService.Add(newProduct);
-            return RedirectToAction("Index");
+                var newProduct = new Product()
+                {
+                    Title = insertProductViewModel.Title,
+                    Category = insertProductViewModel.Category,
+                    Date = DateTime.UtcNow,
+                    Price = insertProductViewModel.Price,
+                    Quantity = insertProductViewModel.Quantity
+                };
+                _productService.Add(newProduct);
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         private IEnumerable<ProductViewModel> GetAll()
