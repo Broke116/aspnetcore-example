@@ -32,5 +32,11 @@ namespace aspnetcoreapp1.Repositories
         {
             return (from p in _products where p.Id == id select p).FirstOrDefault();
         }
+
+        public void Add(Product product)
+        {
+            product.Id = _products.Count + 1;
+            _products.Add(product);
+        }
     }
 }

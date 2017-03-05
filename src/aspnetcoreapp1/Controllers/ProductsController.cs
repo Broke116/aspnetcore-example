@@ -49,6 +49,29 @@ namespace aspnetcoreapp1.Controllers
             return View(productDetailsViewModel);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var insertProductViewModel = new InsertProductViewModel();
+            return View(insertProductViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(InsertProductViewModel insertProductViewModel)
+        {
+            var newProduct = new Product()
+            {
+                Title = insertProductViewModel.Title,
+                Category = insertProductViewModel.Category,
+                Date = DateTime.UtcNow,
+                Price = insertProductViewModel.Price,
+                Quantity = insertProductViewModel.Quantity
+            };
+            _productService.Add(newProduct);
+            return RedirectToAction("Index");
+        }
+
         private IEnumerable<ProductViewModel> GetAll()
         {
             var products = _productService.GetAll();

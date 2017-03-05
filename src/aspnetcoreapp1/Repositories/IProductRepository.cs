@@ -7,5 +7,6 @@ namespace aspnetcoreapp1.Repositories
     {
         IEnumerable<Product> GetAll();
         Product GetBy(int id);
+        void Add(Product product);
     }
 }

@@ -7,5 +7,6 @@ namespace aspnetcoreapp1.Services
     {
         IEnumerable<Product> GetAll();
         Product GetBy(int id);
+        void Add(Product product);
     }
 }

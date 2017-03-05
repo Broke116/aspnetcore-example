@@ -42,5 +42,18 @@ namespace aspnetcoreapp1.Services
                 throw;
             }
         }
+
+        public void Add(Product product)
+        {
+            try
+            {
+                _productRepository.Add(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
