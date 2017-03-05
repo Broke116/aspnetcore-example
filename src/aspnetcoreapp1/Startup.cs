@@ -1,6 +1,8 @@
 ﻿using System;
 using aspnetcoreapp1.Helpers;
 using aspnetcoreapp1.Middleware;
+using aspnetcoreapp1.Repositories;
+using aspnetcoreapp1.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,9 @@ namespace aspnetcoreapp1
         {
             services.AddSingleton<IStringFormatter, JsonStringFormatter>();
             services.AddTransient<IGreeter>((provider) => new GreetMessage());
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddMvc();
         }
