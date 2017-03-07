@@ -1,24 +1,32 @@
 ﻿@model aspnetcoreapp1.Models.ProductIndexViewModel
 
+@{
+    ViewBag.Title = "Books";
+}
+
 <h1>Our products. In total: @Model.TotalProductsAvailable</h1>
 <table>
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>Author</th>
-            <th>Title</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>Author</th>
+        <th>Title</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var prouctViewModel in Model.ProductViewModels)
-        {
-            <tr>
-                <td>@prouctViewModel.Id</td>
-                <td>@prouctViewModel.Category</td>
-                <td>@prouctViewModel.Title</td>
-                <td>@Html.ActionLink("Detail", "Detail", "Products", new { id = prouctViewModel.Id })</td>
-            </tr>
-        }
+    @foreach (var prouctViewModel in Model.ProductViewModels)
+    {
+        <tr>
+            <td>@prouctViewModel.Id</td>
+            <td>@prouctViewModel.Category</td>
+            <td>@prouctViewModel.Title</td>
+            <td>@Html.ActionLink("Detail", "Detail", "Products", new { id = prouctViewModel.Id })</td>
+        </tr>
+    }
     </tbody>
 </table>
-@Html.ActionLink("Add new Product", "Create")
+@*<a asp-action="deneme">Add new with tag library</a> tag helper*@
+
+@section sectionexample {
+    @Html.ActionLink("Add new Product", "Create")
+}

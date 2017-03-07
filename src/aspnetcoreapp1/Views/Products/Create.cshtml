@@ -1,5 +1,9 @@
 ﻿@model aspnetcoreapp1.Models.InsertProductViewModel
 
+@{
+    ViewBag.Title = "Insert new book";
+}
+
 <h1>Insert a new product</h1>
 @using (Html.BeginForm())
 {
@@ -8,19 +12,19 @@
         @Html.LabelFor(m => m.Title)
         @Html.TextBoxFor(m => m.Title)
     </div>
-        <div>
-            @Html.LabelFor(m => m.Quantity)
-            @Html.TextBoxFor(m => m.Quantity)
-        </div>
-        <div>
-            @Html.LabelFor(m => m.Price)
-            @Html.TextBoxFor(m => m.Price)
-        </div>
-        <div>
-            @Html.LabelFor(m => m.Category)
-            @Html.DropDownListFor(m => m.Category, Html.GetEnumSelectList(typeof(aspnetcoreapp1.Domains.Category)))
-        </div>
-        <div>
-            <input type="submit" name="create-product" value="Save" />
-        </div>
+    <div>
+        @Html.LabelFor(m => m.Quantity)
+        @Html.TextBoxFor(m => m.Quantity)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Price)
+        @Html.TextBoxFor(m => m.Price)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Category)
+        @Html.DropDownListFor(m => m.Category, Html.GetEnumSelectList(typeof(aspnetcoreapp1.Domains.Category)))
+    </div>
+    <div>
+        <input type="submit" name="create-product" value="Save" />
+    </div>
 }

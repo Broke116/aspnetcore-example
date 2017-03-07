@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using aspnetcoreapp1.Helpers
+@inject IStringFormatter StringFormatter
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -8,6 +11,12 @@
 <body>
     <div>
         @RenderBody()
+    </div>
+    <div>
+        @RenderSection("sectionexample", false)
+    </div>
+    <div>
+        <p>@StringFormatter.FormatIt(new { Message = "Dependency Injection into view" })</p>
     </div>
 </body>
 </html>

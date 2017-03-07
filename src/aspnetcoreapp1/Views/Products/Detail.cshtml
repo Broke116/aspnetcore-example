@@ -1,5 +1,9 @@
 ﻿@model aspnetcoreapp1.Models.ProductDetailsViewModel
 
+@{
+    ViewBag.Title = "Details of " + @Model.Title;
+}
+
 <h1>Details of @Model.Title</h1>
 
 <table>
