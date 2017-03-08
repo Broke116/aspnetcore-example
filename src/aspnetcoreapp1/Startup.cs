@@ -3,8 +3,10 @@ using aspnetcoreapp1.Helpers;
 using aspnetcoreapp1.Middleware;
 using aspnetcoreapp1.Repositories;
 using aspnetcoreapp1.Services;
+using coreapp_database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,6 +30,12 @@ namespace aspnetcoreapp1
         // dependency injection
         public void ConfigureServices(IServiceCollection services)
         {
+            //database
+            services.AddDbContext<ShopContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddSingleton<IStringFormatter, JsonStringFormatter>();
             services.AddTransient<IGreeter>((provider) => new GreetMessage());
             
@@ -40,7 +48,7 @@ namespace aspnetcoreapp1
         
         // add middlewares to pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
-                    IStringFormatter stringFormatter)
+                    IStringFormatter stringFormatter, ShopContext shopContext)
         {
             loggerFactory.AddConsole();
 
@@ -65,6 +73,8 @@ namespace aspnetcoreapp1
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(shopContext);
 
             // terminus
             //app.Run(async (context) =>
